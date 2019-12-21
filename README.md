@@ -1,27 +1,33 @@
 # Docker Image
-# WS-Apache\_Base + PHP 5.6 (CLI + FPM) + MariaDB Client 10.1 (^= MySQL 5.7)
+
+- Docker Image **ws-apache\_base** plus
+	- PHP 5.6 (CLI + FPM)
+	- PHP packages (see below)
+	- MariaDB Client 10.1 (^= MySQL 5.7)
+	- php-pear
+	- xml-core
+
+For hosting PHP powered websites.
 
 ## PHP Packages included
 
-- php\<VERSION\>-bcmath
-- php\<VERSION\>-cli
-- php\<VERSION\>-common
-- php\<VERSION\>-curl
-- php\<VERSION\>-fpm
-- php\<VERSION\>-gd
-- php\<VERSION\>-imagick
-- php\<VERSION\>-json
-- php\<VERSION\>-mbstring
-- php\<VERSION\>-mcrypt
-- php\<VERSION\>-mysql
-- php\<VERSION\>-opcache
-- php\<VERSION\>-readline
-- php\<VERSION\>-sqlite3
-- php\<VERSION\>-xdebug
-- php\<VERSION\>-xml
-- php\<VERSION\>-zip
-- php-pear
-- xml-core
+- bcmath
+- cli
+- common
+- curl
+- fpm
+- gd
+- imagick
+- json
+- mbstring
+- mcrypt
+- mysql
+- opcache
+- readline
+- sqlite3
+- xdebug
+- xml
+- zip
 
 ## Webserver TCP Port
 The webserver is listening only on TCP port 80 by default.
