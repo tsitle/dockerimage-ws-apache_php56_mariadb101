@@ -1,11 +1,40 @@
 # Docker Image
-# Apache 2.4 + PHP 5.6 (CLI + FPM) + MariaDB Client 10.1 (^= MySQL 5.7)
+# WS-Apache\_Base + PHP 5.6 (CLI + FPM) + MariaDB Client 10.1 (^= MySQL 5.7)
 
-## Document Root
-The website's sourcecode is located in '/var/www/html/'.
+## PHP Packages included
+
+- php\<VERSION\>-bcmath
+- php\<VERSION\>-cli
+- php\<VERSION\>-common
+- php\<VERSION\>-curl
+- php\<VERSION\>-fpm
+- php\<VERSION\>-gd
+- php\<VERSION\>-imagick
+- php\<VERSION\>-json
+- php\<VERSION\>-mbstring
+- php\<VERSION\>-mcrypt
+- php\<VERSION\>-mysql
+- php\<VERSION\>-opcache
+- php\<VERSION\>-readline
+- php\<VERSION\>-sqlite3
+- php\<VERSION\>-xdebug
+- php\<VERSION\>-xml
+- php\<VERSION\>-zip
+- php-pear
+- xml-core
 
 ## Webserver TCP Port
 The webserver is listening only on TCP port 80 by default.
+
+## Docker Container configuration
+
+- CF\_DOCROOT [string]: Document Root directory (e.g. "/var/www/html")
+- CF\_WEBROOT [string]: Website Root directory (e.g. "/var/www/html")
+- CF\_WEBROOT\_SITE [string]: Subdirectory of CF\_WEBROOT to be used as actual Website Root directory (e.g. for Neos CMS "Web/")
+- CF\_PROJ\_PRIMARY\_FQDN [string]: FQDN for website (e.g. "mywebsite.localhost")
+- CF\_SET\_OWNER\_AND\_PERMS\_WEBROOT [bool]: Recursively chown and chmod CF\_WEBROOT?
+- CF\_WWWDATA\_USER\_ID [int]: User-ID for www-data
+- CF\_WWWDATA\_GROUP\_ID [int]: Group-ID for www-data
 
 ## Enabling the PHP Module XDebug
 The PHP Module 'xdebug' is disabled by default.  
