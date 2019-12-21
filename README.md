@@ -41,7 +41,6 @@ The webserver is listening only on TCP port 80 by default.
 - CF\_SET\_OWNER\_AND\_PERMS\_WEBROOT [bool]: Recursively chown and chmod CF\_WEBROOT?
 - CF\_WWWDATA\_USER\_ID [int]: User-ID for www-data
 - CF\_WWWDATA\_GROUP\_ID [int]: Group-ID for www-data
-- CF\_PHP\_FPM\_VERSION [string]: PHP-FPM Version string (e.g. "5.6")
 - CF\_WWWFPM\_USER\_ID [int]: User-ID for wwwphpfpm
 - CF\_WWWFPM\_GROUP\_ID [int]: Group-ID for wwwphpfpm
 
