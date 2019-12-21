@@ -1,0 +1,12 @@
+*.tgz binary
+*.tar binary
+*.tar.gz binary
+*.tar.bz2 binary
+*.tar.xz binary
+*.7z binary
+*.zip binary
+*.pdf binary
+*.ods binary
+*.png binary
+*.jpg binary
+*.gif binary
