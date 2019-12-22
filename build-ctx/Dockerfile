@@ -31,6 +31,7 @@ RUN \
 				php${CF_PHP_FPM_VERSION}-curl \
 				php${CF_PHP_FPM_VERSION}-gd \
 				php${CF_PHP_FPM_VERSION}-imagick \
+				php${CF_PHP_FPM_VERSION}-imap \
 				php${CF_PHP_FPM_VERSION}-json \
 				php${CF_PHP_FPM_VERSION}-mbstring \
 				php${CF_PHP_FPM_VERSION}-mysql \
