@@ -3,7 +3,7 @@
 For hosting PHP powered websites.
 
 ## Inheritance
-- Docker Image **ws-apache\_base**
+- Docker Image **ws-apache-base**
 	- PHP 5.6 (CLI + FPM)
 	- PHP packages (see below)
 	- MariaDB Client 10.1 (^= MySQL 5.7)
