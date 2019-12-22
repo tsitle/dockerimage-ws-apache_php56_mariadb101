@@ -1,16 +1,16 @@
 # Docker Image
 
-- Docker Image **ws-apache\_base** plus
+For hosting PHP powered websites.
+
+## Inheritance
+- Docker Image **ws-apache\_base**
 	- PHP 5.6 (CLI + FPM)
 	- PHP packages (see below)
 	- MariaDB Client 10.1 (^= MySQL 5.7)
 	- php-pear
 	- xml-core
 
-For hosting PHP powered websites.
-
 ## PHP Packages included
-
 - bcmath
 - cli
 - common
@@ -18,6 +18,7 @@ For hosting PHP powered websites.
 - fpm
 - gd
 - imagick
+- imap
 - json
 - mbstring
 - mcrypt
@@ -33,7 +34,6 @@ For hosting PHP powered websites.
 The webserver is listening only on TCP port 80 by default.
 
 ## Docker Container configuration
-
 - CF\_DOCROOT [string]: Document Root directory (e.g. "/var/www/html")
 - CF\_WEBROOT [string]: Website Root directory (e.g. "/var/www/html")
 - CF\_WEBROOT\_SITE [string]: Subdirectory of CF\_WEBROOT to be used as actual Website Root directory (e.g. for Neos CMS "Web/")
@@ -70,7 +70,6 @@ To enable it you'll need to follow these steps from within a Bash shell:
 	```
 
 ## Disabling the PHP Module XDebug
-
 ```  
 $ docker exec -it DOCKERCONTAINER phpdismod xdebug
 ```  
