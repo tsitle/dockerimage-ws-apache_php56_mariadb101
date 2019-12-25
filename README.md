@@ -43,6 +43,7 @@ The webserver is listening only on TCP port 80 by default.
 - CF\_WWWDATA\_GROUP\_ID [int]: Group-ID for www-data
 - CF\_WWWFPM\_USER\_ID [int]: User-ID for wwwphpfpm
 - CF\_WWWFPM\_GROUP\_ID [int]: Group-ID for wwwphpfpm
+- CF\_ENABLE\_CRON [bool]: Enable cron service?
 
 ## Enabling the PHP Module XDebug
 The PHP Module 'xdebug' is disabled by default.  
