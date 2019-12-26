@@ -28,6 +28,16 @@ function _getCpuArch() {
 				return 1
 			fi
 			;;
+		i686*)
+			if [ "$1" = "qemu" ]; then
+				# NOTE: qemu not available for this CPU architecture
+				echo -n "i686_bogus"
+			elif [ "$1" = "s6_overlay" -o "$1" = "alpine_dist" ]; then
+				echo -n "x86"
+			else
+				echo -n "i386"
+			fi
+			;;
 		armv7*)
 			if [ "$1" = "debian_rootfs" ]; then
 				echo -n "arm32v7"
