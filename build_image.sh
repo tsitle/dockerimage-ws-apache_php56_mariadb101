@@ -30,8 +30,7 @@ function _getCpuArch() {
 			;;
 		i686*)
 			if [ "$1" = "qemu" ]; then
-				# NOTE: qemu not available for this CPU architecture
-				echo -n "i686_bogus"
+				echo -n "i386"
 			elif [ "$1" = "s6_overlay" -o "$1" = "alpine_dist" ]; then
 				echo -n "x86"
 			else
