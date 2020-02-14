@@ -1,9 +1,9 @@
-# Docker Image
+# Apache2 + PHP 5.6 + MariaDB 10.1 Client Docker Image for AARCH64, ARMv7l, X86 and X64
 
 For hosting PHP powered websites.
 
-## Inheritance
-- Docker Image **ws-apache-base**
+## Inheritance and added packages
+- Docker Image **tsle/ws-apache-base** (see [https://github.com/tsitle/dockerimage-ws-apache\_base](https://github.com/tsitle/dockerimage-ws-apache_base))
 	- PHP 5.6 (CLI + FPM)
 	- PHP packages (see below)
 	- MariaDB Client 10.1 (^= MySQL 5.7)
@@ -33,17 +33,72 @@ For hosting PHP powered websites.
 ## Webserver TCP Port
 The webserver is listening only on TCP port 80 by default.
 
+## Docker Container usage
+See the related GitHub repository [https://github.com/tsitle/dockercontainer-ws-apache\_php71\_mariadb101](https://github.com/tsitle/dockercontainer-ws-apache_php71_mariadb101)
+
 ## Docker Container configuration
-- CF\_DOCROOT [string]: Document Root directory (e.g. "/var/www/html")
-- CF\_WEBROOT [string]: Website Root directory (e.g. "/var/www/html")
-- CF\_WEBROOT\_SITE [string]: Subdirectory of CF\_WEBROOT to be used as actual Website Root directory (e.g. for Neos CMS "Web/")
-- CF\_PROJ\_PRIMARY\_FQDN [string]: FQDN for website (e.g. "mywebsite.localhost")
-- CF\_SET\_OWNER\_AND\_PERMS\_WEBROOT [bool]: Recursively chown and chmod CF\_WEBROOT?
-- CF\_WWWDATA\_USER\_ID [int]: User-ID for www-data
-- CF\_WWWDATA\_GROUP\_ID [int]: Group-ID for www-data
-- CF\_WWWFPM\_USER\_ID [int]: User-ID for wwwphpfpm
-- CF\_WWWFPM\_GROUP\_ID [int]: Group-ID for wwwphpfpm
-- CF\_ENABLE\_CRON [bool]: Enable cron service?
+From **tsle/ws-apache-base**:
+
+- CF\_PROJ\_PRIMARY\_FQDN [string]: FQDN for website (e.g. "mywebsite.localhost") (default: empty)
+- CF\_SET\_OWNER\_AND\_PERMS\_WEBROOT [bool]: Recursively chown and chmod CF\_WEBROOT? (default: false)
+- CF\_WWWDATA\_USER\_ID [int]: User-ID for www-data (default: 33)
+- CF\_WWWDATA\_GROUP\_ID [int]: Group-ID for www-data (default: 33)
+- CF\_ENABLE\_CRON [bool]: Enable cron service? (default: false)
+- CF\_LANG [string]: Language to use (en\_EN.UTF-8 or de\_DE.UTF-8) (default: empty)
+- CF\_TIMEZONE [string]: Timezone (e.g. 'Europe/Berlin') (default: empty)
+- CF\_ENABLE\_HTTP [bool]: Enable HTTP for Apache? (default: true)
+- CF\_CREATE\_DEFAULT\_HTTP\_SITE [bool]: Create default HTTP Virtual Host for Apache? (default: true)
+- CF\_ENABLE\_HTTPS [bool]: Enable HTTPS/SSL for Apache? (default: false)
+- CF\_CREATE\_DEFAULT\_HTTPS\_SITE [bool]: Create default HTTPS/SSL Virtual Host for Apache? (default: true)
+- CF\_SSLCERT\_GROUP\_ID [int]: Group-ID for ssl-cert (default: 102)
+- CF\_DEBUG\_SSLGEN\_SCRIPT [bool]: Enable debug out for sslgen.sh?
+- CF\_CSR\_SUBJECT\_COUNTRY [string]: For auto-generated SSL Certificates (default: DE)
+- CF\_CSR\_SUBJECT\_STATE [string]: For auto-generated SSL Certificates (default: SAX)
+- CF\_CSR\_SUBJECT\_LOCATION [string]: For auto-generated SSL Certificates (default: LE)
+- CF\_CSR\_SUBJECT\_ORGANIZ [string]: For auto-generated SSL Certificates (default: The IT Company)
+- CF\_CSR\_SUBJECT\_ORGUNIT [string]: For auto-generated SSL Certificates (default: IT)
+
+From this image:
+
+- CF\_WWWFPM\_USER\_ID [int]: User-ID for wwwphpfpm (default: 1000)
+- CF\_WWWFPM\_GROUP\_ID [int]: Group-ID for wwwphpfpm (default: 1000)
+- CF\_ENABLE\_XDEBUG [bool]: Enable XDebug PHP module? (default: false)
+- CF\_XDEBUG\_REMOTE\_HOST [string]: Remote Host for XDebug (default 'dockerhost')
+
+## Using cron
+You'll need to create the crontab file `./mpcron/wwwphpfpm` and then add some task to the file:
+
+```
+# the following command will be executed as 'wwwphpfpm'
+* *    *   *   *     cd /var/www/html/; tar cf backup.tar site-html/> /dev/null 2>&1
+```
+
+Instead of the username `wwwphpfpm` you could also use `root`.
+
+Now you could enable cron in your docker-compose.yaml file like this:
+
+```
+version: '3.5'
+services:
+  apache:
+    image: "ws-apache-php56-mariadb101-<ARCH>:<VERSION>"
+    ports:
+      - "80:80"
+    volumes:
+      - "$PWD/mpweb:/var/www/html"
+      - "$PWD/mpcron/wwwphpfpm:/var/spool/cron/crontabs/wwwphpfpm"
+    environment:
+      - CF_PROJ_PRIMARY_FQDN=example-host.localhost
+      - CF_WWWFPM_USER_ID=<YOUR_UID>
+      - CF_WWWFPM_GROUP_ID=<YOUR_GID>
+      - CF_SET_OWNER_AND_PERMS_WEBROOT=false
+      - CF_ENABLE_CRON=true
+      - CF_LANG=de_DE.UTF-8
+      - CF_TIMEZONE=Europe/Berlin
+    restart: unless-stopped
+    stdin_open: false
+    tty: false
+```
 
 ## Enabling the PHP Module XDebug
 The PHP Module 'xdebug' is disabled by default.  
@@ -57,7 +112,7 @@ To enable it you'll need to follow these steps from within a Bash shell:
 	```
 	$ docker exec -it DOCKERCONTAINER nano /etc/php/5.6/mods-available/xdebug.ini
 	```  
-	  
+
 	```
 	xdebug.remote_host="host"
 	```  
