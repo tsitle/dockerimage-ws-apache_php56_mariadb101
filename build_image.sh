@@ -96,6 +96,7 @@ if [ $? -ne 0 ]; then
 	else
 		echo "$VAR_MYNAME: Updating image from repository '${LVAR_REPO_PREFIX}/'..."
 		docker pull ${LVAR_PARENT_IMG_FULL} || exit 1
+		echo
 	fi
 fi
 
