@@ -1,8 +1,9 @@
-ARG CF_CPUARCH_DEB_DIST
+ARG CF_APACHE_BASE_IMGFULL
+
+FROM ${CF_APACHE_BASE_IMGFULL}
 
 ARG CF_APACHE_BASE_VER
-
-FROM ws-apache-base-${CF_CPUARCH_DEB_DIST}:${CF_APACHE_BASE_VER}
+ENV CF_APACHE_BASE_VER=${CF_APACHE_BASE_VER}
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -24,7 +25,7 @@ RUN \
 	# install packages
 		apt-get update \
 		&& apt-get install -y --no-install-recommends \
-			# mysql/mariadb packages
+			# mariadb packages
 				mariadb-client \
 			# php packages
 				php${CF_PHP_FPM_VERSION} \
@@ -97,6 +98,7 @@ RUN \
 		touch /usr/share/doc/composer/copyright; \
 	fi
 
+#
 RUN \
 	( a2dismod php${CF_PHP_FPM_VERSION} 2>/dev/null || echo -n "" ) \
 	&& a2enconf php${CF_PHP_FPM_VERSION}-fpm \
@@ -114,12 +116,15 @@ RUN \
 	cp /etc/apache2/sites-available/* /root/apache-defaults/
 
 #
-RUN \
-	mv ${CF_WEBROOT}/${CF_WEBROOT_SITE}/index.html ${CF_WEBROOT}/
-
+ENV TMP_WEBROOT_LAST_SITE=$CF_WEBROOT_SITE
 ENV CF_WEBROOT_SITE=site-php
 
 RUN \
-	mkdir ${CF_WEBROOT}/${CF_WEBROOT_SITE} \
+	[ -n "${TMP_WEBROOT_LAST_SITE}" -a "${TMP_WEBROOT_LAST_SITE}" != "." -a "${TMP_WEBROOT_LAST_SITE}" != "./" ] \
+	&& mv ${CF_WEBROOT}/${TMP_WEBROOT_LAST_SITE}/index.html ${CF_WEBROOT}/ \
+	&& rmdir ${CF_WEBROOT}/${TMP_WEBROOT_LAST_SITE} \
+	&& mkdir ${CF_WEBROOT}/${CF_WEBROOT_SITE} \
 	&& chmod u=rwx,g=rwxs,o= ${CF_WEBROOT}/${CF_WEBROOT_SITE} \
 	&& mv ${CF_WEBROOT}/index.html ${CF_WEBROOT}/${CF_WEBROOT_SITE}/
+
+ENV TMP_WEBROOT_LAST_SITE=

@@ -93,6 +93,9 @@ if [ $? -ne 0 ]; then
 			echo "$VAR_MYNAME: Error: could not pull image '${LVAR_PARENT_IMG_FULL}'. Aborting." >/dev/stderr
 			exit 1
 		fi
+	else
+		echo "$VAR_MYNAME: Updating image from repository '${LVAR_REPO_PREFIX}/'..."
+		docker pull ${LVAR_PARENT_IMG_FULL} || exit 1
 	fi
 fi
 
