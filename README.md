@@ -34,7 +34,7 @@ For hosting PHP powered websites.
 The webserver is listening only on TCP port 80 by default.
 
 ## Docker Container usage
-See the related GitHub repository [https://github.com/tsitle/dockercontainer-ws-apache\_php71\_mariadb101](https://github.com/tsitle/dockercontainer-ws-apache_php71_mariadb101)
+See the related GitHub repository [https://github.com/tsitle/dockercontainer-ws-apache\_php56\_mariadb101](https://github.com/tsitle/dockercontainer-ws-apache_php56_mariadb101)
 
 ## Docker Container configuration
 From **tsle/ws-apache-base**:
