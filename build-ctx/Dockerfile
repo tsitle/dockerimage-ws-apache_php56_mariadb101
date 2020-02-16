@@ -10,12 +10,14 @@ ENV DEBIAN_FRONTEND=noninteractive
 ARG CF_PHP_FPM_VERSION="5.6"
 ENV CF_PHP_FPM_VERSION=$CF_PHP_FPM_VERSION
 
+ARG CF_MARIADB_VERSION
+
 RUN \
 	apt-get update \
 	&& apt-get upgrade -y \
 	&& apt-get dist-upgrade -y \
 	# dotdeb sources
-	&& echo "deb https://packages.sury.org/php/ stretch main" >> /etc/apt/sources.list.d/php.list \
+	&& echo "deb https://packages.sury.org/php/ ${CF_DEBIAN_RELEASE} main" >> /etc/apt/sources.list.d/php.list \
 	# additional dotdeb source keys
 	&& wget -q https://packages.sury.org/php/apt.gpg -O- | apt-key add - \
 	# update package lists
@@ -26,7 +28,7 @@ RUN \
 		apt-get update \
 		&& apt-get install -y --no-install-recommends \
 			# mariadb packages
-				mariadb-client \
+				mariadb-client-${CF_MARIADB_VERSION} \
 			# php packages
 				php${CF_PHP_FPM_VERSION} \
 				php${CF_PHP_FPM_VERSION}-fpm \
