@@ -6,7 +6,7 @@ For hosting PHP powered websites.
 - Docker Image **tsle/ws-apache-base** (see [https://github.com/tsitle/dockerimage-ws-apache\_base](https://github.com/tsitle/dockerimage-ws-apache_base))
 	- PHP 5.6 (CLI + FPM)
 	- PHP packages (see below)
-	- MariaDB Client 10.1 (^= MySQL 5.7)
+	- MariaDB Client 10.1 (^= MySQL 5.6)
 	- php-pear
 	- xml-core
 
