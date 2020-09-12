@@ -29,7 +29,6 @@ RUN \
 		&& apt-get install -y --no-install-recommends \
 			# misc
 				git \
-				unzip \
 				p7zip \
 			# mariadb packages
 				mariadb-client-${CF_MARIADB_VERSION} \
@@ -55,6 +54,8 @@ RUN \
 				php${CF_PHP_FPM_VERSION}-xdebug \
 				php${CF_PHP_FPM_VERSION}-bcmath \
 				php${CF_PHP_FPM_VERSION}-mcrypt \
+				php${CF_PHP_FPM_VERSION}-ldap \
+				php${CF_PHP_FPM_VERSION}-gmp \
 				#libapache2-mod-php${CF_PHP_FPM_VERSION} \
 				php-pear \
 				xml-core

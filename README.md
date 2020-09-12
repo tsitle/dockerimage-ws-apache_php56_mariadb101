@@ -17,9 +17,11 @@ For hosting PHP powered websites.
 - curl
 - fpm
 - gd
+- gmp
 - imagick
 - imap
 - json
+- ldap
 - mbstring
 - mcrypt
 - mysql
