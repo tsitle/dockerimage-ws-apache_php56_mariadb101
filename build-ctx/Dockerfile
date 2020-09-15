@@ -40,25 +40,32 @@ RUN \
 				php${CF_PHP_FPM_VERSION}-opcache \
 				php${CF_PHP_FPM_VERSION}-curl \
 				php${CF_PHP_FPM_VERSION}-gd \
-				php${CF_PHP_FPM_VERSION}-imagick \
 				php${CF_PHP_FPM_VERSION}-imap \
 				php${CF_PHP_FPM_VERSION}-intl \
 				php${CF_PHP_FPM_VERSION}-json \
 				php${CF_PHP_FPM_VERSION}-mbstring \
 				php${CF_PHP_FPM_VERSION}-mysql \
 				php${CF_PHP_FPM_VERSION}-readline \
-				php${CF_PHP_FPM_VERSION}-redis \
 				php${CF_PHP_FPM_VERSION}-sqlite3 \
 				php${CF_PHP_FPM_VERSION}-zip \
 				php${CF_PHP_FPM_VERSION}-xml \
-				php${CF_PHP_FPM_VERSION}-xdebug \
 				php${CF_PHP_FPM_VERSION}-bcmath \
 				php${CF_PHP_FPM_VERSION}-mcrypt \
 				php${CF_PHP_FPM_VERSION}-ldap \
 				php${CF_PHP_FPM_VERSION}-gmp \
 				#libapache2-mod-php${CF_PHP_FPM_VERSION} \
 				php-pear \
-				xml-core
+				xml-core \
+		|| exit 1; \
+		if [ "$CF_CPUARCH_DEB_DIST" != "arm64" ]; then \
+			apt-get install -y --no-install-recommends \
+					php${CF_PHP_FPM_VERSION}-imagick \
+					php${CF_PHP_FPM_VERSION}-xdebug \
+					php${CF_PHP_FPM_VERSION}-redis \
+			|| exit 1; \
+		else \
+			echo -n; \
+		fi
 
 #
 RUN \

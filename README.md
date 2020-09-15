@@ -18,7 +18,7 @@ For hosting PHP powered websites.
 - fpm
 - gd
 - gmp
-- imagick
+- imagick (not an ARM64)
 - imap
 - json
 - ldap
@@ -27,9 +27,9 @@ For hosting PHP powered websites.
 - mysql
 - opcache
 - readline
-- redis
+- redis (not an ARM64)
 - sqlite3
-- xdebug
+- xdebug (not an ARM64)
 - xml
 - zip
 
